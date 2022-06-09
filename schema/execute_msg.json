@@ -1,0 +1,159 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ExecuteMsg",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "create_template"
+      ],
+      "properties": {
+        "create_template": {
+          "type": "object",
+          "required": [
+            "items",
+            "title"
+          ],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TierlistItem"
+              }
+            },
+            "title": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "delete_template"
+      ],
+      "properties": {
+        "delete_template": {
+          "type": "object",
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "uint64",
+              "minimum": 0.0
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "edit_template"
+      ],
+      "properties": {
+        "edit_template": {
+          "type": "object",
+          "required": [
+            "id",
+            "items",
+            "title"
+          ],
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "uint64",
+              "minimum": 0.0
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TierlistItem"
+              }
+            },
+            "title": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "save_tierlist"
+      ],
+      "properties": {
+        "save_tierlist": {
+          "type": "object",
+          "required": [
+            "tierlist"
+          ],
+          "properties": {
+            "tierlist": {
+              "$ref": "#/definitions/Tierlist"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  ],
+  "definitions": {
+    "Tierlist": {
+      "description": "A tierlist a user is completing",
+      "type": "object",
+      "required": [
+        "items_to_tiers",
+        "template_id"
+      ],
+      "properties": {
+        "items_to_tiers": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": [
+              {
+                "$ref": "#/definitions/TierlistItem"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "maxItems": 2,
+            "minItems": 2
+          }
+        },
+        "template_id": {
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0.0
+        }
+      }
+    },
+    "TierlistItem": {
+      "description": "Tierlist item having a name and an optional image",
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "image_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
